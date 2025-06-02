@@ -1,0 +1,8 @@
+GoogleNews
+bs4
+sentence-transformers
+faiss-cpu
+groq
+pandas
+langchain
+streamlit
