@@ -106,7 +106,6 @@ A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves
 5. **Initialize FAISS Index**
    
    * If starting fresh, the first run of the Streamlit app will build the FAISS database from scratch.
-   * Alternatively, run the ingestion script manually (see [Project Structure](#project-structure)).
 
 ## Usage
 
