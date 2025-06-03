@@ -1,4 +1,3 @@
-````markdown
 # RAG News Extractor
 
 A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves relevant news content from Google News. Leveraging web scraping, text chunking, embedding, and a vector database, this project allows users to ask about any news topic, receive a summarized overview, and follow up with streaming answers.
@@ -65,7 +64,7 @@ A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves
       - Concatenate/re-rank retrieved chunks as needed.
       - Stream the summarization from Groq LLaMA (prompted via LangChain).
    2. For follow-up questions:
-      - Context window includes previous question + answer + retrieved chunks.
+      - Context window includes system prompt + retrieved chunks.
       - Generate a streaming reply via the same Groq LLaMA pipeline.
 
 6. **Streamlit Frontend**
@@ -80,7 +79,6 @@ A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves
    ```bash
    git clone https://github.com/arjunravi26/rag_news_extractor.git
    cd rag_news_extractor
-````
 
 2. **Create a Python virtual environment**
 
@@ -101,16 +99,13 @@ A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves
    * If your project requires API keys (e.g., custom Google News API, LLaMA credentials), create a `.env` file in the root directory:
 
      ```dotenv
-     OPENAI_API_KEY=your_openai_api_key_here
-     GOOGLE_NEWS_API_KEY=your_google_news_api_key_if_any
-     LLAMA_MODEL_PATH=/path/to/groq-llama-model
+     GROQ_API_KEY=your_openai_api_key_here
      ```
    * Ensure that `.env` is listed in `.gitignore` to avoid committing secrets.
 
 5. **Initialize FAISS Index**
-
+   
    * If starting fresh, the first run of the Streamlit app will build the FAISS database from scratch.
-   * Alternatively, run the ingestion script manually (see [Project Structure](#project-structure)).
 
 ## Usage
 
@@ -129,44 +124,6 @@ A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves
    * After the initial summary, you can enter follow-up questions in a text box (e.g., “What are the main challenges?”).
    * The answer will stream in real time, leveraging the existing context window + retrieved chunks.
 
-3. **Custom Scripts**
-
-   * **Ingest Articles Offline**
-
-     ```bash
-     python scripts/ingest_news.py --topic "Climate Change"
-     ```
-
-     • Fetches Google News links, scrapes content, chunks, embeds, and updates FAISS.
-   * **Rebuild FAISS Index**
-
-     ```bash
-     python scripts/rebuild_index.py
-     ```
-
-     • Reprocesses all stored raw articles and rebuilds the FAISS index from scratch.
-
-## Configuration
-
-* **Chunk Size & Overlap**
-
-  * Default chunk size and overlap are defined in `config.py`. Adjust `CHUNK_SIZE` and `CHUNK_OVERLAP` as needed.
-
-* **Embedding Model**
-
-  * By default, uses Sentence-Transformer `all-MiniLM-L6-v2`. To change, update the model name/path in `config.py` or `embeddings.py`.
-
-* **Vector Store Path**
-
-  * The FAISS index is saved to `./vector_store/faiss_index.idx` by default. Modify the path in `config.py` if you want to store it elsewhere.
-
-* **LLaMA Model**
-
-  * Ensure `LLAMA_MODEL_PATH` points to the folder containing the Groq LLaMA weights (e.g., `ggml-groq-llama.bin`).
-
-* **Google News Source**
-
-  * The project currently scrapes Google News search result pages. If you prefer to use a Google News API, update `news_fetcher.py` accordingly.
 
 ## Dependencies
 
@@ -179,12 +136,6 @@ A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves
   * [Groq LLaMA](https://github.com/groq/groq-llama) — LLM for summarization & Q\&A
   * [Streamlit](https://streamlit.io/) — Web interface
 
-* **Utility Libraries**
-
-  * `requests` — HTTP requests for fetching pages
-  * `python-dotenv` — Load environment variables from `.env`
-  * `tqdm` — Progress bars during ingestion
-  * `nltk` or `spacy` (optional) — Text preprocessing / tokenization
 
 * **Python Version**
 
@@ -195,33 +146,6 @@ Install everything via:
 ```bash
 pip install -r requirements.txt
 ```
-
-## Project Structure
-
-```
-rag_news_extractor/
-├── app.py                   # Streamlit application entrypoint
-├── requirements.txt         # Python dependencies
-├── .env.example             # Example environment variables
-├── config.py                # Configuration constants (chunk size, paths, model names)
-├── news_fetcher.py          # Fetches Google News links for a given topic
-├── scraper.py               # Uses Beautiful Soup to extract article content from URLs
-├── text_chunker.py          # Wraps LangChain's RecursiveCharacterTextSplitter
-├── embeddings.py            # Loads Sentence-Transformer and computes chunk embeddings
-├── vector_store.py          # Builds and queries FAISS index
-├── llama_interface.py       # Handles prompts & streaming with Groq LLaMA
-├── utils.py                 # Helper functions (e.g., text cleaning, logging)
-├── scripts/
-│   ├── ingest_news.py       # CLI script: ingest a topic end-to-end (fetch → scrape → chunk → embed → index)
-│   └── rebuild_index.py     # CLI script: rebuild FAISS index from existing raw data
-├── data/
-│   ├── raw/                 # Raw scraped HTML/text files (optional caching)
-│   ├── chunks/              # Individual text chunk files (optional caching)
-│   └── vector_store/        # FAISS index files & metadata
-└── README.md                # ← You are here
-```
-
-> **Note:** If your directory structure differs slightly, adjust the sections above accordingly.
 
 ## Contributing
 
@@ -255,5 +179,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 *Built by [arjunravi26](https://github.com/arjunravi26)*
 
-```
 ```
