@@ -49,14 +49,14 @@ A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves
 2. **News Retrieval**
    1. Query Google News for top headlines/links matching the topic.
    2. For each news link, scrape the article text using Beautiful Soup.
-   3. Store raw text locally (optional cache).
+   3. Store raw text locally.
 
 3. **Text Chunking**
-   - Use LangChain’s `RecursiveCharacterTextSplitter` to split each article into manageable chunks (e.g., 1,000 tokens each, with overlap).
+   - Use LangChain’s `RecursiveCharacterTextSplitter` to split each article into manageable chunks.
 
 4. **Embedding & Indexing**
    1. For each text chunk, compute a dense embedding via a Sentence-Transformer model (e.g., `all-MiniLM-L6-v2`).
-   2. Insert embeddings into a FAISS index, along with metadata (source URL, chunk ID).
+   2. Insert embeddings into a FAISS index.
 
 5. **Querying & Summarization**
    1. When the user asks “Summarize the latest news on [topic]”:
