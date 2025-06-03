@@ -1,8 +1,8 @@
 import logging
 from typing import AsyncGenerator
 
-from utils.google_news import get_google_news
-from utils.extract_news import download_latest_news
+from utils.news_fetcher import get_google_news
+from utils.scraper import download_latest_news
 from utils.save_news import save_news
 from utils.chunking import chunk_doc
 from utils.embedding import embed_documents
