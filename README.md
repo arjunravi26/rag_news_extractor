@@ -80,7 +80,6 @@ A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves
    git clone https://github.com/arjunravi26/rag_news_extractor.git
    cd rag_news_extractor
 
-
 2. **Create a Python virtual environment**
 
    ```bash
