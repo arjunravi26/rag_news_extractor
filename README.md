@@ -1,4 +1,3 @@
-````markdown
 # RAG News Extractor
 
 A Retrieval-Augmented Generation (RAG) system that extracts, ingests, and serves relevant news content from Google News. Leveraging web scraping, text chunking, embedding, and a vector database, this project allows users to ask about any news topic, receive a summarized overview, and follow up with streaming answers.
@@ -255,5 +254,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 *Built by [arjunravi26](https://github.com/arjunravi26)*
 
-```
 ```
