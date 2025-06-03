@@ -38,7 +38,6 @@ def download_latest_news(data):
 
         time.sleep(random.uniform(1, 3))
 
-    print(description)
 
     data["description"] = description
     return data
