@@ -4,17 +4,14 @@ import time
 from typing import AsyncGenerator
 import logging
 
-# Import your utility functions
 from inference_pipeline import NewsPipeline
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
-# Set page config with Apple-inspired settings
 st.set_page_config(
     page_title="News • AI Summarizer",
     page_icon="📰",
